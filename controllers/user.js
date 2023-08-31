@@ -1,6 +1,6 @@
 import User from '../models/User.js';
 
-//update hotel
+//update User
 export const updateUser = async (req, res, next) => {
 	try {
 		const updateUser = await User.findByIdAndUpdate(
@@ -14,7 +14,7 @@ export const updateUser = async (req, res, next) => {
 	}
 };
 
-//delete hotel
+//delete User
 export const deleteUser = async (req, res, next) => {
 	try {
 		await User.findByIdAndDelete(req.params.id);
@@ -24,7 +24,7 @@ export const deleteUser = async (req, res, next) => {
 	}
 };
 
-//get hotel
+//get User
 export const getUser = async (req, res, next) => {
 	try {
 		const user = await User.findById(req.params.id);
@@ -34,7 +34,7 @@ export const getUser = async (req, res, next) => {
 	}
 };
 
-//get all hotels
+//get all Users
 export const getUsers = async (req, res, next) => {
 	try {
 		const users = await User.find();
