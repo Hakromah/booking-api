@@ -47,18 +47,19 @@ export const getHotel = async (req, res, next) => {
 
 //get all hotels
 export const getHotels = async (req, res, next) => {
-	//const { min, max, ...others } = req.qery;
+	const { min, max, limit, ...others } = req.query; //this single "qery" insted of "query" toke me 3 days before finding the misspelling
 	try {
-		const hotels = await Hotel.find(req.qery).limit(req.query.limit);
-		// {
-		// 	...others,
-		// 	cheapestPrice: { $gt: min | 1, $lt: max || 999 },
-		// }
+		const hotels = await Hotel.find({
+			...others,
+			cheapestPrice: { $gt: min || 1, $lt: max || 999 },
+		}).limit(limit);
+
 		res.status(200).json(hotels);
 	} catch (error) {
 		next(error);
 	}
 };
+
 //connect with react
 export const countByCity = async (req, res, next) => {
 	const cities = req.query.cities.split(',');
@@ -73,6 +74,7 @@ export const countByCity = async (req, res, next) => {
 		next(error);
 	}
 };
+
 export const countByType = async (req, res, next) => {
 	try {
 		const hotelCount = await Hotel.countDocuments({ type: 'hotel' });
